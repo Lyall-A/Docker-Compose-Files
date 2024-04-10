@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  template:
+    image: template/template
+    container_name: template
+    restart: "unless-stopped"
+    #network_mode: host
+    ports:
+      - 80:80
+    volumes:
+      - ../volumes/template/config:/config

@@ -15,6 +15,7 @@ services:
     image: linuxserver/deluge
     container_name: deluge
     network_mode: service:vpn
+    restart: "unless-stopped"
     volumes:
       - ../volumes/deluge/config:/config
       - /media/hdd/media/Torrents:/downloads
