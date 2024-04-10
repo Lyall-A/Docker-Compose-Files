@@ -1,11 +1,11 @@
 version: '3.5'
 services:
-  jellyfin-vue:
+  jellyfin_vue:
     image: ghcr.io/jellyfin/jellyfin-vue:unstable
-    container_name: jellyfin-vue
+    container_name: jellyfin_vue
     ports:
       - 8099:80
     restart: 'unless-stopped'
     environment:
       - DEFAULT_SERVERS=https://jellyfin.lyall.cam
-      - ALLOW_SERVER_SELECTION=false # doesnt seem to do anything?
+      - DISABLE_SERVER_SELECTION=1 # doesnt seem to do anything?
