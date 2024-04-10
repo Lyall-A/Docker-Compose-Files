@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  adguardhome:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    network_mode: 'host' # im lazy
+    volumes:
+      - ../volumes/adguardhome/work:/opt/adguardhome/work
+      - ../volumes/adguardhome/conf:/opt/adguardhome/conf
+      #- adguardhome-work:/opt/adguardhome/work
+      #- adguardhome-conf:/opt/adguardhome/conf
+    restart: 'unless-stopped'
+#volumes:
+#  adguardhome-work:
+#    external: true
+#  adguardhome-conf:
+#    external: true

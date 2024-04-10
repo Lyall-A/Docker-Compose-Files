@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  vpn:
+    image: dperson/openvpn-client
+    container_name: vpn
+    restart: "unless-stopped"
+    cap_add:
+      - net_admin
+    ports:
+      - 8112:8112
+    volumes:
+      - ../volumes/vpn/vpn:/vpn
+    command: '-f ""'
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: service:vpn
+    volumes:
+      - ../volumes/deluge/config:/config
+      - /media/hdd/media/Torrents:/downloads
+      - /media/hdd/media:/media # just cus

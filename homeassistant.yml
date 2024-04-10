@@ -1,0 +1,12 @@
+version: '3.5'
+services:
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant
+    container_name: homeassistant
+    network_mode: 'host' # im lazy
+    volumes:
+      - ../volumes/homeassistant/config:/config
+    restart: 'unless-stopped'
+#volumes:
+#  homeassistant-config:
+#    external: true

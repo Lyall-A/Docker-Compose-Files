@@ -1,0 +1,11 @@
+version: '3.5'
+services:
+  http_proxy:
+    build: /home/lyall/Servers/http_proxy
+    container_name: http_proxy
+    network_mode: 'host'
+    #ports:
+    #  - 80:80
+    volumes:
+      - /home/lyall/Servers/http_proxy:/node
+    restart: 'unless-stopped'
