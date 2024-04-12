@@ -9,3 +9,12 @@ services:
       - 8008:8008/tcp
     volumes:
       - ../volumes/matrix/data:/data
+# i give up
+#  matrix-appservice-discord:
+#    image: halfshot/matrix-appservice-discord
+#    container_name: matrix-appserver-discord
+#    restart: "unless-stopped"
+#    ports:
+#      - 9005:9005
+#    volumes:
+#      - ../volumes/matrix-appservice-discord/data:/data
