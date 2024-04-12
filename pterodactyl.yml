@@ -1,0 +1,68 @@
+# DONT USE DONT USE DONT USE DONT USE DONT USE DONT USE
+version: "3.8"
+services:
+  pterodactyl_database:
+    container_name: pterodactyl_database
+    image: mariadb:10.5
+    restart: "unless-stopped"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "../volumes/pterodactyl_database/database:/var/lib/mysql"
+    environment:
+      MYSQL_PASSWORD: "Pterodactyl123"
+      MYSQL_ROOT_PASSWORD: "Pterodactyl321*"
+      MYSQL_DATABASE: "panel"
+      MYSQL_USER: "pterodactyl"
+  pterodactyl_cache:
+    container_name: pterodactyl_cache
+    image: redis:alpine
+    restart: "unless-stopped"
+  pterodactyl_panel:
+    container_name: pterodactyl_panel
+    image: ghcr.io/pterodactyl/panel:latest
+    restart: "unless-stopped"
+    ports:
+      - "8050:80"
+    links:
+      - pterodactyl_database
+      - pterodactyl_cache
+    volumes:
+      - "../volumes/pterodactyl_panel/var/:/app/var/"
+      - "../volumes/pterodactyl_panel/nginx/:/etc/nginx/http.d/"
+      - "../volumes/pterodactyl_panel/certs/:/etc/letsencrypt/"
+      - "../volumes/pterodactyl_panel/logs/:/app/storage/logs"
+    environment:
+      TRUSTED_PROXIES: "localhost"
+      APP_URL: "https://pterodactyl.lyall.cam"
+      APP_TIMEZONE: "Europe/London"
+      RECAPTCHA_ENABLED: "false"
+      DB_PASSWORD: "Pterodactyl123"
+      APP_ENV: "production"
+      APP_ENVIRONMENT_ONLY: "false"
+      CACHE_DRIVER: "redis"
+      SESSION_DRIVER: "redis"
+      QUEUE_DRIVER: "redis"
+      REDIS_HOST: "pterodactyl_cache"
+      DB_HOST: "pterodactyl_database"
+      DB_PORT: "3306"
+  wings:
+    container_name: wings
+    image: ghcr.io/pterodactyl/wings:latest
+    restart: "unless-stopped"
+    ports:
+      - "8060:8080"
+      - "8061:2022"
+    tty: true
+    environment:
+      TZ: "Europe/London"
+      WINGS_UID: 988
+      WINGS_GID: 988
+      WINGS_USERNAME: pterodactyl
+    volumes:
+      #- "/var/run/docker.sock:/var/run/docker.sock"
+      #- "/var/lib/docker/containers/:/var/lib/docker/containers/"
+      #- "/etc/pterodactyl/:/etc/pterodactyl/"
+      - ../volumes/pterodactyl_panel/var/:/var/lib/pterodactyl/
+      - ../volumes/pterodactyl_panel/logs/:/var/log/pterodactyl/
+      #- "/tmp/pterodactyl/:/tmp/pterodactyl/"
+      - ../volumes/pterodactyl_panel/certs:/etc/ssl/certs:ro
