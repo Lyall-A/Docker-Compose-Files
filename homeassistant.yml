@@ -3,7 +3,12 @@ services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant
     container_name: homeassistant
-    network_mode: 'host' # im lazy
+    #network_mode: 'host' # im lazy
+    ports:
+      - 1900:1900
+      - 5353:5353
+      - 51827:51827
+      - 8123:8123
     volumes:
       - ../volumes/homeassistant/config:/config
     restart: 'unless-stopped'
