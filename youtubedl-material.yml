@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  youtubedl-material:
+    image: tzahi12345/youtubedl-material:latest
+    container_name: youtubedl-material
+    restart: "unless-stopped"
+    #network_mode: host
+    ports:
+      - 17442:17442
+    volumes:
+      - ../volumes/youtubedl-material/config:/app/appdata
+      #- ../volumes/youtubedl-material/video:/app/video
+      - ../volumes/youtubedl-material/subscriptions:/app/subscriptions
+      - ../volumes/youtubedl-material/users:/app/users
+      #- ../volumes/youtubedl-material/audio:/app/audio
+      - /media/hdd/media/YouTube/Videos:/app/video
+      - /media/hdd/media/YouTube/Audio:/app/audio
