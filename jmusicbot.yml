@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  jmusicbot:
+    build: "/home/lyall/Files/Music Bot"
+    container_name: jmusicbot
+    restart: "unless-stopped"
+    #network_mode: host
+    #ports:
+    #  - 80:80
+    volumes:
+      - "/home/lyall/Files/Music Bot:/app"

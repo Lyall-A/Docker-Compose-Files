@@ -5,13 +5,27 @@ services:
     container_name: youtubedl-material
     restart: "unless-stopped"
     #network_mode: host
+#    depends_on:
+#      - youtubedl-material_db
     ports:
       - 17442:17442
+#    environment:
+#      ytdl_mongodb_connection_string: "mongodb://youtubedl-material_db:27017"
+#      ytdl_use_local_db: "false"
+#      write_ytdl_config: "true"
+#      #multi_user_mode: "true"
     volumes:
       - ../volumes/youtubedl-material/config:/app/appdata
       #- ../volumes/youtubedl-material/video:/app/video
-      - ../volumes/youtubedl-material/subscriptions:/app/subscriptions
+      #- ../volumes/youtubedl-material/subscriptions:/app/subscriptions
       - ../volumes/youtubedl-material/users:/app/users
       #- ../volumes/youtubedl-material/audio:/app/audio
       - /media/hdd/media/YouTube/Videos:/app/video
       - /media/hdd/media/YouTube/Audio:/app/audio
+      - /media/hdd/media/YouTube/Channels:/app/subscriptions/channels
+#  youtubedl-material_db:
+#    image: mongo:4
+#    container_name: youtubedl-material_db
+#    restart: "unless-stopped"
+#    volumes:
+#      - ../volumes/youtubedl-material_db/db:/data/db
