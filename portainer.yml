@@ -4,7 +4,7 @@ services:
     image: portainer/portainer-ce:latest
     container_name: portainer
     restart: "unless-stopped"
-    #network_mode: host
+    network_mode: "bridge"
     ports:
       - 9443:9443
       - 8000:8000
@@ -15,6 +15,7 @@ services:
     image: portainer/agent:2.19.4
     container_name: portainer_agent
     restart: "unless-stopped"
+    network_mode: "bridge"
     ports:
       - 9001:9001
     volumes:

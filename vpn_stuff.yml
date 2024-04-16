@@ -1,0 +1,61 @@
+# how can i put these in different compose files
+version: "3.8"
+services:
+  vpn:
+    image: dperson/openvpn-client
+    container_name: vpn
+    restart: "unless-stopped"
+    network_mode: "bridge"
+    cap_add:
+      - net_admin
+    ports:
+      - 8112:8112 # Deluge
+      - 8989:8989 # Sonarr
+      - 7878:7878 # Radarr
+      - 8686:8686 # Lidarr
+      - 9117:9117 # Jackett
+    volumes:
+      - ../volumes/vpn/vpn:/vpn
+    command: '-f ""'
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    network_mode: service:vpn
+    restart: "unless-stopped"
+    volumes:
+      - ../volumes/deluge/config:/config
+      - /media/hdd/media/Torrents:/downloads
+      - /media/hdd/media:/media # just cus
+  sonarr:
+    image: ghcr.io/hotio/sonarr
+    container_name: sonarr
+    restart: "unless-stopped"
+    network_mode: service:vpn
+    volumes:
+      - ../volumes/sonarr/config:/config
+      - /media/hdd/media:/media
+  radarr:
+    image: ghcr.io/hotio/radarr
+    container_name: radarr
+    restart: "unless-stopped"
+    network_mode: service:vpn
+    volumes:
+      - ../volumes/radarr/config:/config
+      - /media/hdd/media:/media
+  lidarr:
+    image: ghcr.io/hotio/lidarr
+    container_name: lidarr
+    restart: "unless-stopped"
+    network_mode: service:vpn
+    volumes:
+      - ../volumes/lidarr/config:/config
+      - /media/hdd/media:/media
+  jackett:
+    image: lscr.io/linuxserver/jackett:latest
+    container_name: jackett
+    restart: "unless-stopped"
+    network_mode: service:vpn
+    volumes:
+      - ../volumes/jackett/config:/config
+      - /media/hdd/media/Torrents:/downloads
+      - /media/hdd/media:/media
