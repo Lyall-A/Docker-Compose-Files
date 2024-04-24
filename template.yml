@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   template:
-    image: template/template
+    image: template/template:latest
     container_name: template
     restart: "unless-stopped"
     network_mode: "bridge"
