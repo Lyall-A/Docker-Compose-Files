@@ -3,8 +3,8 @@ services:
   homeassistant:
     image: ghcr.io/home-assistant/home-assistant
     container_name: homeassistant
-    #network_mode: 'host' # im lazy
-    network_mode: "bridge"
+    restart: unless-stopped
+    network_mode: bridge
     ports:
       - 1900:1900
       - 5353:5353
@@ -12,7 +12,3 @@ services:
       - 8123:8123
     volumes:
       - ../volumes/homeassistant/config:/config
-    restart: "unless-stopped"
-#volumes:
-#  homeassistant-config:
-#    external: true

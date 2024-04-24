@@ -3,18 +3,11 @@ services:
   jellyfin:
     image: jellyfin/jellyfin
     container_name: jellyfin
-    network_mode: "bridge"
+    restart: unless-stopped
+    network_mode: bridge
     ports:
       - 8096:8096
     volumes:
       - ../volumes/jellyfin/config:/config
       - ../volumes/jellyfin/cache:/cache
-      #- jellyfin-config:/config
-      #- jellyfin-cache:/cache
       - /media/hdd/media:/media
-    restart: "unless-stopped"
-#volumes:
-#  jellyfin-config:
-#    external: true
-#  jellyfin-cache:
-#    external: true

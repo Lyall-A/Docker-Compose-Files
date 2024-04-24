@@ -3,10 +3,10 @@ services:
   jellyfin_vue:
     image: ghcr.io/jellyfin/jellyfin-vue:unstable
     container_name: jellyfin_vue
-    network_mode: "bridge"
+    restart: unless-stopped
+    network_mode: bridge
     ports:
       - 8099:80
-    restart: "unless-stopped"
     environment:
       - DEFAULT_SERVERS=https://jellyfin.lyall.cam
       - DISABLE_SERVER_SELECTION=1

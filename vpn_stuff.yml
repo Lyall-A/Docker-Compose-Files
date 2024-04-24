@@ -1,11 +1,12 @@
-# how can i put these in different compose files
+# TODO: figure out how to seperate these into seperate files, if possible
 version: "3.8"
 services:
+  # OpenVPN Client
   vpn:
     image: dperson/openvpn-client
     container_name: vpn
-    restart: "unless-stopped"
-    network_mode: "bridge"
+    restart: unless-stopped
+    network_mode: bridge
     cap_add:
       - net_admin
     ports:
@@ -22,58 +23,64 @@ services:
     volumes:
       - ../volumes/vpn/vpn:/vpn
     command: '-f ""'
-  qbittorrent:
-    image: linuxserver/qbittorrent:latest
-    container_name: qbittorrent
-    restart: "unless-stopped"
-    network_mode: service:vpn
-    environment:
-      - WEBUI_PORT=8090
-      - TORRENTING_PORT=6887
-    volumes:
-      - ../volumes/qbittorrent/config:/config
-      - /media/hdd/media/Torrents:/downloads
-      - /media/hdd/media:/media
+  # qBittorrent
+  #qbittorrent:
+  #  image: linuxserver/qbittorrent:latest
+  #  container_name: qbittorrent
+  #  restart: unless-stopped
+  #  network_mode: service:vpn
+  #  environment:
+  #    - WEBUI_PORT=8090
+  #    - TORRENTING_PORT=6887
+  #  volumes:
+  #    - ../volumes/qbittorrent/config:/config
+  #    - /media/hdd/media/Torrents:/downloads
+  #    - /media/hdd/media:/media
+  # Deluge
   deluge:
     image: linuxserver/deluge
     container_name: deluge
+    restart: unless-stopped
     network_mode: service:vpn
-    restart: "unless-stopped"
     volumes:
       - ../volumes/deluge/config:/config
       - /media/hdd/media/Torrents:/downloads
       - /media/hdd/media:/media
+  # Sonarr (Shows)
   sonarr:
     image: ghcr.io/hotio/sonarr
     container_name: sonarr
-    restart: "unless-stopped"
+    restart: unless-stopped
     network_mode: service:vpn
     volumes:
       - ../volumes/sonarr/config:/config
       - /media/hdd/media:/media
       - /media/hdd/media/Torrents:/downloads
+  # Radarr (Movies)
   radarr:
     image: ghcr.io/hotio/radarr
     container_name: radarr
-    restart: "unless-stopped"
+    restart: unless-stopped
     network_mode: service:vpn
     volumes:
       - ../volumes/radarr/config:/config
       - /media/hdd/media:/media
       - /media/hdd/media/Torrents:/downloads
+  # Lidarr (Music)
   lidarr:
     image: ghcr.io/hotio/lidarr
     container_name: lidarr
-    restart: "unless-stopped"
+    restart: unless-stopped
     network_mode: service:vpn
     volumes:
       - ../volumes/lidarr/config:/config
       - /media/hdd/media:/media
       - /media/hdd/media/Torrents:/downloads
+  # Jackett (Indexer)
   jackett:
     image: lscr.io/linuxserver/jackett:latest
     container_name: jackett
-    restart: "unless-stopped"
+    restart: unless-stopped
     network_mode: service:vpn
     volumes:
       - ../volumes/jackett/config:/config

@@ -3,18 +3,8 @@ services:
   adguardhome:
     image: adguard/adguardhome
     container_name: adguardhome
-    network_mode: "host" # im lazy
-    #ports:
-    #  - 3000:3000
-    #  - 53:53
+    restart: unless-stopped
+    network_mode: host # TODO: use bridge
     volumes:
       - ../volumes/adguardhome/work:/opt/adguardhome/work
       - ../volumes/adguardhome/conf:/opt/adguardhome/conf
-      #- adguardhome-work:/opt/adguardhome/work
-      #- adguardhome-conf:/opt/adguardhome/conf
-    restart: "unless-stopped"
-#volumes:
-#  adguardhome-work:
-#    external: true
-#  adguardhome-conf:
-#    external: true

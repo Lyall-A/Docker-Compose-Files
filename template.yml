@@ -1,11 +1,11 @@
 version: "3.8"
 services:
-  template:
-    image: template/template:latest
-    container_name: template
-    restart: "unless-stopped"
-    network_mode: "bridge"
+  TEMPLATE:
+    image: TEMPLATE/TEMPLATE:latest
+    container_name: TEMPLATE
+    restart: unless-stopped
+    network_mode: bridge
     ports:
       - 80:80
     volumes:
-      - ../volumes/template/config:/config
+      - ../volumes/TEMPLATE/config:/config

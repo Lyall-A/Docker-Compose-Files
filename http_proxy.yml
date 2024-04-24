@@ -3,10 +3,7 @@ services:
   http_proxy:
     build: /home/lyall/Servers/http_proxy
     container_name: http_proxy
-    network_mode: "host"
-    #ports:
-    #  - 80:80
-    #  - 443:443
+    restart: unless-stopped
+    network_mode: host
     volumes:
       - /home/lyall/Servers/http_proxy:/app
-    restart: "unless-stopped"
