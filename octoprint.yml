@@ -5,6 +5,7 @@ services:
     container_name: octoprint
     restart: unless-stopped
     network_mode: bridge
+    privileged: true
     ports:
       - 5000:5000
     volumes:
