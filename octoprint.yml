@@ -10,3 +10,5 @@ services:
     volumes:
       - /dev/ttyUSB0:/dev/ttyUSB0
       - ../volumes/octoprint/data:/octoprint
+    environment:
+      - EXTRA_GROUPS=dialout
