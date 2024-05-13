@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  TEMPLATE:
+  octoprint:
     image: octoprint/octoprint
     container_name: octoprint
     restart: unless-stopped
