@@ -6,4 +6,4 @@ services:
     restart: unless-stopped
     network_mode: host
     volumes:
-      - /home/lyall/Servers/HTTP-Reverse-Proxy:/data
+      - /home/lyall/Servers/HTTP-Reverse-Proxy:/app
