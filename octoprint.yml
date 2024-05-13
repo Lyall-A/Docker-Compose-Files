@@ -9,6 +9,5 @@ services:
     ports:
       - 5000:5000
     volumes:
+      - /dev/ttyUSB0:/dev/ttyUSB0
       - ../volumes/octoprint/data:/octoprint
-    group_add:
-      - 20
