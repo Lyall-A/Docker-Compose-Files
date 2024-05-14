@@ -20,5 +20,6 @@ services:
     ports:
       - 5050:5050
     working_dir: /app
+    command: node .
     volumes:
       - /home/lyall/Servers/Derek-Cam:/app
