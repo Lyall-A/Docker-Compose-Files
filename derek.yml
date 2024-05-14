@@ -13,13 +13,12 @@ services:
     group_add:
       - 20
   derek_cam:
-    image: node
+    build: /home/lyall/Servers/Derek-Cam
     container_name: derek_cam
     restart: unless-stopped
     network_mode: bridge
     ports:
       - 5050:5050
-    working_dir: /app
-    command: node .
+    privileged: true
     volumes:
       - /home/lyall/Servers/Derek-Cam:/app
