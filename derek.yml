@@ -12,6 +12,7 @@ services:
       - ../../Derek/Timelapse:/timelapse
       - ../../Derek/Watched:/watched
       - ../volumes/octoprint/data:/octoprint
+      - /dev:/dev
     privileged: true
     group_add:
       - 20
@@ -22,6 +23,7 @@ services:
     network_mode: bridge
     ports:
       - 5050:5050
-    privileged: true
     volumes:
+      - /dev:/dev
       - /home/lyall/Servers/Derek-Cam:/app
+    privileged: true
