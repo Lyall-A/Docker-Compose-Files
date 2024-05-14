@@ -5,10 +5,10 @@ services:
     container_name: octoprint
     restart: unless-stopped
     network_mode: bridge
-    privileged: true
     ports:
       - 5000:5000
     volumes:
       - ../volumes/octoprint/data:/octoprint
+    privileged: true
     group_add:
       - 20

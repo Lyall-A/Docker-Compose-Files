@@ -1,9 +1,10 @@
 version: "3.8"
 services:
   http_proxy:
-    build: /home/lyall/Servers/HTTP-Reverse-Proxy
+    image: node
     container_name: http_proxy
     restart: unless-stopped
     network_mode: host
+    working_dir: /app
     volumes:
       - /home/lyall/Servers/HTTP-Reverse-Proxy:/app
