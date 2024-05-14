@@ -14,6 +14,8 @@ services:
       - ../volumes/octoprint/data:/octoprint
       - /dev:/dev
     privileged: true
+    environment:
+      - UDEV=true
     group_add:
       - 20
   derek_cam:
@@ -24,6 +26,8 @@ services:
     ports:
       - 5050:5050
     volumes:
-      - /dev:/dev
       - /home/lyall/Servers/Derek-Cam:/app
+      - /dev:/dev
     privileged: true
+    environment:
+      - UDEV=true
