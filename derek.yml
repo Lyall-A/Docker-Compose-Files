@@ -8,9 +8,9 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - /media/hdd/media/Derek/Upload:/upload
-      - /media/hdd/media/Derek/Timelapse:/timelapse
-      - /media/hdd/media/Derek/Watched:/watched
+      - ../../Derek/Upload:/upload
+      - ../../Derek/Timelapse:/timelapse
+      - ../../Derek/Watched:/watched
       - ../volumes/octoprint/data:/octoprint
     privileged: true
     group_add:
