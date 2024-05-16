@@ -21,10 +21,10 @@ x-obico-defaults: &obico-defaults
     SITE_IS_PUBLIC: "${SITE_IS_PUBLIC-False}"
     CSRF_TRUSTED_ORIGINS: "${CSRF_TRUSTED_ORIGINS-}"
     SOCIAL_LOGIN: "${SOCIAL_LOGIN-False}"
-    REDIS_URL: "${REDIS_URL-redis://obico_redis:6379}"
+    REDIS_URL: "${REDIS_URL-redis://obicoredis:6379}"
     DATABASE_URL: "${DATABASE_URL-sqlite:////app/db.sqlite3}"
-    INTERNAL_MEDIA_HOST: "${INTERNAL_MEDIA_HOST-http://obico_web:3334}"
-    ML_API_HOST: "${ML_API_HOST-http://obico_ml_api:3333}"
+    INTERNAL_MEDIA_HOST: "${INTERNAL_MEDIA_HOST-http://obicoweb:3334}"
+    ML_API_HOST: "${ML_API_HOST-http://obicomlapi:3333}"
     ACCOUNT_ALLOW_SIGN_UP: "${ACCOUNT_ALLOW_SIGN_UP-False}"
     WEBPACK_LOADER_ENABLED: "${WEBPACK_LOADER_ENABLED-False}"
     TELEGRAM_BOT_TOKEN: "${TELEGRAM_BOT_TOKEN-}"
@@ -43,8 +43,8 @@ services:
   octoprint:
     build: ./dockerfile/octoprint
     container_name: octoprint
+    hostname: octoprint
     restart: unless-stopped
-    network_mode: bridge
     ports:
       - 5000:5000
     volumes:
@@ -56,48 +56,64 @@ services:
     privileged: true
     group_add:
       - 20
+    networks:
+      - derek
 
   derek_cam:
     build: /home/lyall/Servers/Derek-Cam
     container_name: derek_cam
+    hostname: derekcam
     restart: unless-stopped
-    network_mode: bridge
     ports:
       - 5050:5050
     volumes:
       - /home/lyall/Servers/Derek-Cam:/app
       - /dev:/dev
     privileged: true
+    networks:
+      - derek
 
   obico_ml_api:
     build: ../../Servers/Obico/ml_api
     container_name: obico_ml_api
+    hostname: obicomlapi
     restart: unless-stopped
-    hostname: obico_ml_api
     environment:
       DEBUG: "True"
       FLASK_APP: "server.py"
     tty: true
     command: bash -c "gunicorn --bind 0.0.0.0:3333 --workers 1 wsgi"
+    networks:
+      - derek
 
   obico_web:
     <<: *obico-defaults
     container_name: obico_web
-    hostname: obico_web
+    hostname: obicoweb
     ports:
       - 3334:3334
     depends_on:
       - obico_ml_api
     command: sh -c "python manage.py migrate && python manage.py collectstatic -v 2 --noinput && daphne -b 0.0.0.0 -p 3334 config.routing:application"
+    networks:
+      - derek
 
   obico_tasks:
     <<: *obico-defaults
     container_name: obico_tasks
-    hostname: obico_tasks
+    hostname: obicotasks
     command: sh -c "celery -A config worker --beat -l info -c 2 -Q realtime,celery"
+    networks:
+      - derek
 
   obico_redis:
     container_name: obico_redis
+    hostname: obicoredis
     restart: unless-stopped
-    hostname: obico_redis
     image: redis:7.2-alpine
+    networks:
+      - derek
+
+networks:
+  derek:
+    driver: bridge
