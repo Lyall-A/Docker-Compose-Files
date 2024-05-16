@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:5000
     volumes:
-      - ../../Derek/Upload:/upload
+      - ../../Derek/Uploads:/uploads
       - ../../Derek/Timelapse:/timelapse
       - ../../Derek/Watched:/watched
       - ../volumes/octoprint/data:/octoprint
