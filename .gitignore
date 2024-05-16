@@ -2,5 +2,5 @@
 !.gitignore
 !*.yml
 !*.sh
-!dockerfile
-!dockerfile/*
+!/dockerfile
+!/dockerfile/*
