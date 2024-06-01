@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  minecraft:
+    image: openjdk:21-oracle
+    container_name: minecraft
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 25565:25565
+    working_dir: /data
+    # command: java -jar forge-installer.jar --installServer
+    # command: java -jar server.jar
+    command: ./run.sh
+    volumes:
+      # - ../volumes/minecraft/data:/data
+      - /home/lyall/Minecraft Server:/data
