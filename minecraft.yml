@@ -10,6 +10,7 @@ services:
     working_dir: /data
     # command: java -jar forge-installer.jar --installServer
     # command: java -jar server.jar
+    # command: java -jar paper.jar
     command: ./run.sh
     volumes:
       # - ../volumes/minecraft/data:/data
