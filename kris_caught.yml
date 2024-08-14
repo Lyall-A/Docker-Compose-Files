@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  kris_caught:
+    image: oven/bun:latest
+    container_name: kris_caught
+    restart: unless-stopped
+    network_mode: bridge
+    ports:
+      - 5934:5934
+    working_dir: /app
+    command: bun .
+    volumes:
+      - /media/hdd/media/Kris Caught:/app

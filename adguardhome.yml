@@ -4,7 +4,11 @@ services:
     image: adguard/adguardhome
     container_name: adguardhome
     restart: unless-stopped
-    network_mode: host # TODO: use bridge
+    network_mode: bridge
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 3000:3000/tcp
     volumes:
       - ../volumes/adguardhome/work:/opt/adguardhome/work
       - ../volumes/adguardhome/conf:/opt/adguardhome/conf
