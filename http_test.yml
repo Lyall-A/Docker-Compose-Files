@@ -1,13 +1,13 @@
 version: "3.8"
 services:
-  kris_caught:
+  http_test:
     image: oven/bun:latest
-    container_name: kris_caught
+    container_name: http_test
     restart: unless-stopped
     network_mode: bridge
     ports:
-      - 5934:5934
+      - 5678:5678
     working_dir: /app
     command: bun .
     volumes:
-      - /media/hdd/media/Kris Caught:/app
+      - /home/lyall/Servers/HTTP-Test:/app

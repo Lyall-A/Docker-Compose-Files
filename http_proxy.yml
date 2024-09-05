@@ -1,11 +1,11 @@
 version: "3.8"
 services:
   http_proxy:
-    image: oven/bun:latest
+    image: node:latest
     container_name: http_proxy
     restart: unless-stopped
     network_mode: host
     working_dir: /app
-    command: bun .
+    command: node .
     volumes:
       - /home/lyall/Servers/HTTP-Reverse-Proxy:/app

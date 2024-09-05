@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  cloudflare_ip_updater:
+    image: oven/bun:latest
+    container_name: cloudflare_ip_updater
+    restart: unless-stopped
+    network_mode: bridge
+    working_dir: /app
+    command: bun .
+    volumes:
+      - /home/lyall/Servers/Cloudflare-IP-Updater:/app
